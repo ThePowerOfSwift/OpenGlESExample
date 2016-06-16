@@ -59,12 +59,7 @@ class OpenGLView5: UIView {
         self.setupProjection()
         
         self.render()
-        
-        
-        //        let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(1 * Double(NSEC_PER_SEC)))
-        //        dispatch_after(delayTime, dispatch_get_main_queue()) {
-        //            print("test")
-        //        }
+
     }
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -111,8 +106,8 @@ class OpenGLView5: UIView {
     
     private func setupProgram(){
         // Load shaders
-        let vertexShaderPath = NSBundle.mainBundle().pathForResource("VertexShader4", ofType: "glsl")!
-        let fragmentShaderPath = NSBundle.mainBundle().pathForResource("FragmentShader4", ofType: "glsl")!
+        let vertexShaderPath = NSBundle.mainBundle().pathForResource("VertexShader5", ofType: "glsl")!
+        let fragmentShaderPath = NSBundle.mainBundle().pathForResource("FragmentShader5", ofType: "glsl")!
         
         let vertexShader = GLESUtils.loadShader(GLenum(GL_VERTEX_SHADER), withFilepath: vertexShaderPath)
         let fragmentShader = GLESUtils.loadShader(GLenum(GL_FRAGMENT_SHADER), withFilepath: fragmentShaderPath)
@@ -282,7 +277,7 @@ class OpenGLView5: UIView {
             -0.5, 0.5, -0.5, 1.0, 1.0, 1.0, 1.0,     // white
             -0.5, -0.5, -0.5, 0.0, 0.0, 1.0, 1.0,    // blue
         ]
-        
+        GL_ARRAY_BUFFER
         let indices: [GLubyte] = [
             // Front face
             0, 3, 2, 0, 2, 1,
@@ -302,14 +297,13 @@ class OpenGLView5: UIView {
             // Down face
             0, 7, 4, 0, 4, 3
         ]
-        let castPointer = UnsafePointer<GLfloat>(vertices)
         
         glVertexAttribPointer(positionSlot, 3, GLenum(GL_FLOAT), GLboolean(GL_FALSE), GLsizei(7 * sizeof(Float)), vertices);
         //操作指针
-        glVertexAttribPointer(colorSlot, 4, GLenum(GL_FLOAT), GLboolean(GL_FALSE), GLsizei(7 * sizeof(Float)), castPointer + 3);
-        //顶点着色器 属性 位置数组
+        glVertexAttribPointer(colorSlot, 4, GLenum(GL_FLOAT), GLboolean(GL_FALSE), GLsizei(7 * sizeof(Float)), UnsafePointer<GLfloat>(vertices) + 3);
+        //顶点着色器 属性 位置数组 开启
         glEnableVertexAttribArray(positionSlot);
-        //顶点着色器 属性 颜色数组
+        //顶点着色器 属性 颜色数组 开启
         glEnableVertexAttribArray(colorSlot);
         //画 元素 三角形
         glDrawElements(GLenum(GL_TRIANGLES), GLsizei(indices.count/sizeof(GLubyte)), GLenum(GL_UNSIGNED_BYTE), indices)

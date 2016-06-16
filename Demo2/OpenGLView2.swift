@@ -136,13 +136,15 @@ class OpenGLView2: UIView {
         glClearColor(0, 1.0, 1.0, 1.0)
         glClear(GLbitfield(GL_COLOR_BUFFER_BIT))
         
+        glViewport(0, 0, GLsizei(self.frame.size.width), GLsizei(self.frame.size.height))
+        
         // Setup viewport
         let vertices:[GLfloat] = [
             -0.5, -0.5, 0.0,
             0.5, -0.5, 0.0,
-            0.0 , 0.5, 0.0 ]
+            0.5 , 0.5, 0.0,
+            -0.5 , 0.5, 0.0]
         
-        glViewport(0, 0, GLsizei(self.frame.size.width), GLsizei(self.frame.size.height))
         // Load the vertex data
         glVertexAttribPointer(positionSlot, 3, GLenum(GL_FLOAT), GLboolean(GL_FALSE), 0, vertices );
         glEnableVertexAttribArray(positionSlot);
