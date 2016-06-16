@@ -109,8 +109,8 @@ class OpenGLView5Test: UIView {
     }
     private func compileShaders()
     {
-        fragmentShader = compileShader("FragmentShader", type: GLenum(GL_FRAGMENT_SHADER))
-        vertexShader = compileShader("VertexShader", type: GLenum(GL_VERTEX_SHADER))
+        fragmentShader = compileShader("FragmentShader5", type: GLenum(GL_FRAGMENT_SHADER))
+        vertexShader = compileShader("VertexShader5", type: GLenum(GL_VERTEX_SHADER))
         
         let programHandle = glCreateProgram()
         glAttachShader(programHandle, vertexShader);
@@ -143,7 +143,7 @@ class OpenGLView5Test: UIView {
         
         filterUni = GLuint(glGetUniformLocation(programHandle, "rgbaFilter"))
         
-//        glUniformMatrix4fv(GLint(filterUni), 1, GLboolean(GL_FALSE), 0)
+        glUniformMatrix4fv(GLint(filterUni), 1, GLboolean(GL_FALSE), nil)
     }
     
     private func compileShader(shaderName : String, type : GLenum) -> GLuint

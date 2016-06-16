@@ -10,7 +10,7 @@ import UIKit
 
 class Demo5ViewController: UIViewController {
     
-    private var _openGLView: OpenGLView5!
+    private var _openGLView: OpenGLView5Test!
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configureViews()
@@ -42,14 +42,16 @@ extension Demo5ViewController{
         self.view.addSubview(openGLView)
         self.consraintsForSubViews();
         
+        openGLView.setUpTexture(UIImage(named: "container.jpg")!.CGImage!)
+        
     }
     // MARK: - views actions
     // MARK: - getter and setter
     
-    private var openGLView: OpenGLView5 {
+    private var openGLView: OpenGLView5Test {
         get{
             if _openGLView == nil{
-                _openGLView = OpenGLView5()
+                _openGLView = OpenGLView5Test()
                 _openGLView.translatesAutoresizingMaskIntoConstraints = false
             }
             return _openGLView
